@@ -8,7 +8,7 @@ class MusicListContainer extends React.Component {
     this.state = {
       selectedTrack: null,
       musicList: [
-        { id: 1, title: "Campfire Story" },
+          { id: 1, title: "Music One" },
         { id: 2, title: "Booting Up" }
       ]
     };

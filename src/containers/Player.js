@@ -1,6 +1,7 @@
 import React from "react";
 import "../App.css";
-const campfireStory = "yourURLorIMPORTtoYOURmp3";
+const campfireStory =
+  "https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/wwy.mp3";
 const bootingUp = "https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/wwy.mp3";
 
 function getTime(time) {
@@ -37,7 +38,7 @@ class PlayerContainer extends React.Component {
     if (this.state.selectedTrack) {
       let track;
       switch (this.state.selectedTrack) {
-        case "Campfire Story":
+        case "Music One":
           track = campfireStory;
           break;
         case "Booting Up":
@@ -59,7 +60,7 @@ class PlayerContainer extends React.Component {
     if (this.state.selectedTrack !== prevState.selectedTrack) {
       let track;
       switch (this.state.selectedTrack) {
-        case "Campfire Story":
+        case "Music One":
           track = campfireStory;
           break;
         case "Booting Up":
@@ -84,11 +85,11 @@ class PlayerContainer extends React.Component {
         this.props.history.push("/");
         console.log(this.state.player);
         this.setState({ selectedTrack: null });
-      }
-      if (this.state.player === "paused") {
-        this.player.src = this.state.selectedTrack;
+      } else if (
+        this.state.player === "playing" &&
+        prevState.player === "paused"
+      ) {
         this.player.play();
-        this.setState({ player: "playing" });
       }
     }
   }
@@ -99,19 +100,26 @@ class PlayerContainer extends React.Component {
     return (
       <div className="App">
         <a href="/">Music Lists </a>
-        <h4>{this.props.location.state.selectedTrack}</h4>
+        <h4> Now Playing : {this.props.location.state.selectedTrack}</h4>
         <img
           src="https://is4-ssl.mzstatic.com/image/thumb/Purple122/v4/eb/42/8c/eb428cbf-09a9-575d-266f-30dfc755e099/source/512x512bb.jpg"
-          alt="musicplayer background" style={{height:400}}
+          alt="musicplayer background"
+          style={{ height: 400 }}
         />
         <div>
           {this.state.player === "paused" && (
-            <button onClick={() => this.setState({ player: "paused" })}>
+            <button
+              onClick={() => this.setState({ player: "playing" })}
+              style={{ marginRight: 16 }}
+            >
               Play
             </button>
           )}
           {this.state.player === "playing" && (
-            <button onClick={() => this.setState({ player: "paused" })}>
+            <button
+              onClick={() => this.setState({ player: "paused" })}
+              style={{ marginRight: 16 }}
+            >
               Pause
             </button>
           )}
@@ -126,6 +134,8 @@ class PlayerContainer extends React.Component {
         {this.state.player === "playing" || this.state.player === "paused" ? (
           <div>
             {currentTime} / {duration}
+            <br />
+            <p>Need some more time to implemnet it on DLL</p>
           </div>
         ) : (
           ""
