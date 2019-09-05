@@ -135,7 +135,7 @@ class PlayerContainer extends React.Component {
           <div>
             {currentTime} / {duration}
             <br />
-            <p>Need some more time to implemnet it on DLL</p>
+            <p>Need some more time to implement it on DLL</p>
           </div>
         ) : (
           ""
